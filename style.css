@@ -124,7 +124,27 @@ SO {
 
 }
 
-h4 {
+h3 {
   margin-top: 10rem;
 
+}
+
+#eventsList {
+  list-style-type: none;                     
+  background: rgb(186, 181, 181);         
+  border-radius: 30px;         
+}
+
+#eventsList li {
+  padding: 12px 20px;          
+}
+
+#eventsList li:hover {
+  background-color: #eef6ff;
+}
+
+
+#eventsList .year {
+  font-weight: bold;          
+  color: #292a2a;                
 }

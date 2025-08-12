@@ -16,7 +16,6 @@ document.title = "Kalender " + todayDateFormatted;
 let weekdaysIndex = today.getDay();
 let weekday = getWeekdayGerman(weekdaysIndex);
 
-
 document.getElementById('fullWeekday1').textContent = weekday;
 document.getElementById('fullWeekday2').textContent = weekday;
 document.getElementById('fullMonth').textContent = getMonthGerman(todayMonth);
@@ -37,64 +36,6 @@ if (feiertagsName) {
 } else {
     document.getElementById("holiday").textContent = "Heute ist kein gesetzlicher Feiertag in Hessen.";
 }
-
-
-
-
-
-
-document.addEventListener('DOMContentLoaded', () => { fetchData(); }); // um Ereignisse im Browser abzufangen und darauf zu reagieren 
-
-
-
-async function fetchData() {
-    try {
-        const response = await fetch('https://history.muffinlabs.com/date');
-        if (!response.ok) {
-            throw new Error('not successful');
-        }
-        const data = await response.json();
-        const events = data.data.Events.slice(0, 5);
-        events.forEach(event => {
-            console.log(`${event.year}: ${event.text}`);
-        })
-
-        const eventsList = document.getElementById('events_list');
-        eventsList.innerHTML = '';
-
-        events.forEach(event => {
-            const li = document.createElement('li');
-            li.innerHTML = `<span class="year">${event.year}</span> - ${event.text}`;
-            eventsList.appendChild(li);
-        });
-
-    } catch (error) {
-        console.error(error);
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -326,6 +267,41 @@ function getDaysInMonth(year, month) {
 
 
 
+let eventsArray = [];
+document.addEventListener('DOMContentLoaded', fetchData)
+
+async function fetchData() {
+    let response = await fetch('https://history.muffinlabs.com/date');
+    let data = await response.json();
+    let events = data.data.Events.slice(0,5);
+    console.log(data);
+
+    try {
+        if (!response.ok) throw new Error('not successful');
+
+        // Events in Array speichern
+        eventsArray = events.map(event => 
+            ({year: event.year, text: event.text}));
+        let eventsHessen = eventsArray.filter(event => 
+        event.text.includes("Hessen"));    
+
+        renderEventsFromArray();   // um die Events aus dem Array,in die HTML-Seite einzufügen und sichtbar zu machen
+    } catch (error) {
+        console.error(error);
+    }  
+}
+    
+function renderEventsFromArray() {
+    let eventsList = document.getElementById('eventsList');
+    eventsList.innerHTML = '';
+
+    eventsArray.forEach(event => {
+    let li = document.createElement('li');
+    li.innerHTML = '<span class="year">' + event.year + '</span> - ' + event.text;
+    eventsList.appendChild(li); 
+    });
+
+}
 
 
 
