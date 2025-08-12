@@ -16,6 +16,7 @@ document.title = "Kalender " + todayDateFormatted;
 let weekdaysIndex = today.getDay();
 let weekday = getWeekdayGerman(weekdaysIndex);
 
+
 document.getElementById('fullWeekday1').textContent = weekday;
 document.getElementById('fullWeekday2').textContent = weekday;
 document.getElementById('fullMonth').textContent = getMonthGerman(todayMonth);
@@ -36,6 +37,64 @@ if (feiertagsName) {
 } else {
     document.getElementById("holiday").textContent = "Heute ist kein gesetzlicher Feiertag in Hessen.";
 }
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => { fetchData(); }); // um Ereignisse im Browser abzufangen und darauf zu reagieren 
+
+
+
+async function fetchData() {
+    try {
+        const response = await fetch('https://history.muffinlabs.com/date');
+        if (!response.ok) {
+            throw new Error('not successful');
+        }
+        const data = await response.json();
+        const events = data.data.Events.slice(0, 5);
+        events.forEach(event => {
+            console.log(`${event.year}: ${event.text}`);
+        })
+
+        const eventsList = document.getElementById('events_list');
+        eventsList.innerHTML = '';
+
+        events.forEach(event => {
+            const li = document.createElement('li');
+            li.innerHTML = `<span class="year">${event.year}</span> - ${event.text}`;
+            eventsList.appendChild(li);
+        });
+
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
