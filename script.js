@@ -27,8 +27,10 @@ document.getElementById("currentYear").textContent = todayYear;
 
 let nthWeekday = getNthWeekdayInMonth(today);
 document.getElementById('nthWeekday').textContent = nthWeekday;
+document.addEventListener('DOMContentLoaded', fetchData)
 
 let feiertagsName = getFeiertag(today);
+let eventsArray = [];
 
 renderCalenderStart2(todayYear, todayMonth);
 if (feiertagsName) {
@@ -265,36 +267,33 @@ function getDaysInMonth(year, month) {
     return new Date(year, month + 1, 0).getDate();
 }
 
-
-let eventsArray = [];
-document.addEventListener('DOMContentLoaded', fetchData)
-
 async function fetchData() {
-    let response = await fetch(`https://history.muffinlabs.com/date/${todayMonth}/${todayDay}`);
-    let data = await response.json();
-    let events = data.data.Events.slice(0,5);
-    console.log(data);
     try {
+        let response = await fetch(`https://history.muffinlabs.com/date/${todayMonth}/${todayDay}`);
+        let data = await response.json();
+        let events = data.data.Events.slice(0, 5);
+        console.log(data);
         if (!response.ok) throw new Error('not successful');
         // Events in Array speichern
-        eventsArray = events.map(event => 
-            ({year: event.year, text: event.text}));
-        // let eventsHessen = eventsArray.filter(event => 
-        // event.text.includes("Hessen"));    
+        eventsArray = events.map(event =>
+        ({
+            year: event.year,
+            text: event.text
+        }));
         renderEventsFromArray();   // um die Events aus dem Array,in die HTML-Seite sichtbar zu machen
     } catch (error) {
         console.error(error);
-    }  
+    }
 }
-    
+
 function renderEventsFromArray() {
     let eventsList = document.getElementById('eventsList');
     eventsList.innerHTML = '';
 
     eventsArray.forEach(event => {
-    let li = document.createElement('li');
-    li.innerHTML = '<span class="year">' + event.year + '</span> - ' + event.text;
-    eventsList.appendChild(li); 
+        let li = document.createElement('li');
+        li.innerHTML = '<span class="year">' + event.year + '</span> - ' + event.text;
+        eventsList.appendChild(li);
     });
 }
 
