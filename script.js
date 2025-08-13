@@ -301,6 +301,19 @@ function renderEventsFromArray() {
 
 
 
+//  let numberEvents = data.data.Events.lengh;
+//     let showEvents = [];
+//     if (numberEvents > 5) {
+//         let showEventsIndicies = []
+//         for (i = 0; 5 <= i; i++) {
+//              rand.nextInt(0,numberEvents)
+//             showEventsIndicies =
+//         }
 
+//     } else {
+//         for (i = 0; numberEvents <= i; i++) {
+//             showEvents.add(events[i]);
+//         }
+//     }
 
 
