@@ -1,7 +1,7 @@
 let today = new Date();
 let todayDay = today.getDate();
-
 let todayDayFormatted = todayDay.toString().padStart(2, '0');
+
 let todayMonth = today.getMonth();
 let todayMonthFormatted = (todayMonth + 1).toString().padStart(2, '0');
 
@@ -267,11 +267,12 @@ function getDaysInMonth(year, month) {
 
 
 
+
 let eventsArray = [];
 document.addEventListener('DOMContentLoaded', fetchData)
 
 async function fetchData() {
-    let response = await fetch('https://history.muffinlabs.com/date');
+    let response = await fetch(`https://history.muffinlabs.com/date/${todayMonth}/${todayDay}`);
     let data = await response.json();
     let events = data.data.Events.slice(0,5);
     console.log(data);
