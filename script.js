@@ -266,8 +266,6 @@ function getDaysInMonth(year, month) {
 }
 
 
-
-
 let eventsArray = [];
 document.addEventListener('DOMContentLoaded', fetchData)
 
@@ -276,17 +274,14 @@ async function fetchData() {
     let data = await response.json();
     let events = data.data.Events.slice(0,5);
     console.log(data);
-
     try {
         if (!response.ok) throw new Error('not successful');
-
         // Events in Array speichern
         eventsArray = events.map(event => 
             ({year: event.year, text: event.text}));
-        let eventsHessen = eventsArray.filter(event => 
-        event.text.includes("Hessen"));    
-
-        renderEventsFromArray();   // um die Events aus dem Array,in die HTML-Seite einzufügen und sichtbar zu machen
+        // let eventsHessen = eventsArray.filter(event => 
+        // event.text.includes("Hessen"));    
+        renderEventsFromArray();   // um die Events aus dem Array,in die HTML-Seite sichtbar zu machen
     } catch (error) {
         console.error(error);
     }  
@@ -301,7 +296,6 @@ function renderEventsFromArray() {
     li.innerHTML = '<span class="year">' + event.year + '</span> - ' + event.text;
     eventsList.appendChild(li); 
     });
-
 }
 
 
