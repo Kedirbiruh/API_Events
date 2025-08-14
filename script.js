@@ -30,7 +30,6 @@ document.getElementById('nthWeekday').textContent = nthWeekday;
 document.addEventListener('DOMContentLoaded', fetchData)
 
 let feiertagsName = getFeiertag(today);
-let eventsArray = [];
 
 renderCalenderStart2(todayYear, todayMonth);
 if (feiertagsName) {
@@ -71,7 +70,7 @@ function getFeiertag(datum) {
     const karfreitag = getKarfreitag(datum.getFullYear());
     const ostermontag = getOstermontag(datum.getFullYear());
     const fronleichnam = getFronleichnam(datum.getFullYear());
-
+    
     if (areDatesEqual(datum, himmelFahrt)) {
         return "Himmelfahrt";
     } else if (areDatesEqual(datum, pfingsten)) {
@@ -124,6 +123,7 @@ function getKarfreitag(year) {
     const easterSunday = getEasterSunday(year);
     return new Date(easterSunday.getFullYear(), easterSunday.getMonth(), easterSunday.getDate() - 2);
 }
+let eventsArray = [];
 
 // Berechnung von  anhand von Ostersonntag:
 function getOstermontag(year) {
@@ -300,40 +300,5 @@ function renderEventsFromArray() {
     });
 }
 
-
-
-
-
-
-
-
-
-
-
-
-// async function fetchData() {
-//     try { 
-//         let url = `https://history.muffinlabs.com/date/${todayMonth}/${todayDay}`;
-//         let response = await fetch(url);
-//         let data = await response.json();
-//         let events = data.data.Events;
-//         console.log(data.data.Events);
-//         if (!response.ok) throw new Error('not successful');
-
-//             let nunmberOfEvents = events.length;
-//             let selectedEvents = selectedEvents.length
-//             let i = 0;
-
-//             selectedEvents = [];
-
-//         while (i < 5) {
-
-//             console.log(events.length);
-//             i++;
-//          } // Zähler erhöhen, um die Schleife zu
-//     } catch (error) {
-//         console.error(error);
-//     }
-// }
 
 
