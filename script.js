@@ -30,7 +30,6 @@ document.getElementById('nthWeekday').textContent = nthWeekday;
 document.addEventListener('DOMContentLoaded', fetchData)
 
 let feiertagsName = getFeiertag(today);
-let eventsArray = [];
 
 renderCalenderStart2(todayYear, todayMonth);
 if (feiertagsName) {
@@ -270,30 +269,33 @@ function getDaysInMonth(year, month) {
 
 
 async function fetchData() {
+    let eventsArray = [];
     try {
         let url = `https://history.muffinlabs.com/date/${todayMonth}/${todayDay}`;
         let response = await fetch(url);
-        let data = await response.json();
-        let events = data.data.Events.slice(0, 5);
-        console.log(data.data.Events);
+        let json = await response.json();
+        let events = json.data.Events;
         if (!response.ok) throw new Error('not successful');
-        // Events in Array speichern
-        eventsArray = events.map(event =>
-        ({
-            year: event.year,
-            text: event.text
-        }));
-        renderEventsFromArray();   // um die Events aus dem Array,in die HTML-Seite sichtbar zu machen
+        renderEventsFromArray(events);   // um die Events aus dem Array,in die HTML-Seite sichtbar zu machen
     } catch (error) {
         console.error(error);
     }
 }
 
-function renderEventsFromArray() {
+function renderEventsFromArray(events) {
     let eventsList = document.getElementById('eventsList');
+    let length = events.length;
+    let chosenEvents = [];
+    while (chosenEvents.length < 5) {
+        let random = Math.floor(Math.random() * length);
+        if (!chosenEvents.includes(random)) {
+            chosenEvents.push(events[random]);
+        }
+    }
+    chosenEvents.sort((a, b) => b.year - a.year);
     eventsList.innerHTML = '';
 
-    eventsArray.forEach(event => {
+    chosenEvents.forEach(event => {
         let li = document.createElement('li');
         li.innerHTML = '<span class="year">' + event.year + '</span> - ' + event.text;
         eventsList.appendChild(li);
@@ -312,7 +314,7 @@ function renderEventsFromArray() {
 
 
 // async function fetchData() {
-//     try { 
+//     try {
 //         let url = `https://history.muffinlabs.com/date/${todayMonth}/${todayDay}`;
 //         let response = await fetch(url);
 //         let data = await response.json();
