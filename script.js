@@ -267,12 +267,15 @@ function getDaysInMonth(year, month) {
     return new Date(year, month + 1, 0).getDate();
 }
 
+
+
 async function fetchData() {
     try {
-        let response = await fetch(`https://history.muffinlabs.com/date/${todayMonth}/${todayDay}`);
+        let url = `https://history.muffinlabs.com/date/${todayMonth}/${todayDay}`;
+        let response = await fetch(url);
         let data = await response.json();
         let events = data.data.Events.slice(0, 5);
-        console.log(data);
+        console.log(data.data.Events);
         if (!response.ok) throw new Error('not successful');
         // Events in Array speichern
         eventsArray = events.map(event =>
@@ -300,9 +303,6 @@ function renderEventsFromArray() {
 
 
 
-        // let eventListe = data.data.Events
-//     let numberEvents = data.data.Events.length;
-//     let eventsArray = [];
 
 
 
@@ -311,23 +311,29 @@ function renderEventsFromArray() {
 
 
 
+// async function fetchData() {
+//     try { 
+//         let url = `https://history.muffinlabs.com/date/${todayMonth}/${todayDay}`;
+//         let response = await fetch(url);
+//         let data = await response.json();
+//         let events = data.data.Events;
+//         console.log(data.data.Events);
+//         if (!response.ok) throw new Error('not successful');
 
+//             let nunmberOfEvents = events.length;
+//             let selectedEvents = selectedEvents.length
+//             let i = 0;
 
+//             selectedEvents = [];
 
+//         while (i < 5) {
 
-
-
-//     if (numberEvents > 5) {
-//         let showEventsIndicies = []
-//         for (i = 0; 5 <= i; i++) {
-//              rand.nextInt(0,numberEvents)
-//             showEventsIndicies =
-//         }
-
-//     } else {
-//         for (i = 0; numberEvents <= i; i++) {
-//             showEvents.add(events[i]);
-//         }
+//             console.log(events.length);
+//             i++;
+//          } // Zähler erhöhen, um die Schleife zu
+//     } catch (error) {
+//         console.error(error);
 //     }
+// }
 
 
