@@ -12,7 +12,7 @@ body {
   grid-template-areas:
     "pageHeader pageHeader"
     "kalenderblatt text_box";
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 1fr 1fr;
   padding: 20px;
 
 
@@ -32,7 +32,6 @@ body {
   grid-area: kalenderblatt;
   border-collapse: collapse;
   margin: 30px 0;
-
 }
 
 #kalenderHeader {
@@ -40,8 +39,6 @@ body {
   color: black;
   padding: 40px;
   width: 900px;
-
-
 }
 
 table,
@@ -50,7 +47,6 @@ td {
   border-collapse: collapse;
   margin: 20px auto;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-
 }
 
 
@@ -60,7 +56,6 @@ th {
   padding: 15px;
   font-weight: bold;
   border: 1px solid #5a5656;
-
 }
 
 td {
@@ -71,13 +66,10 @@ td {
   width: 30px;
   font-size: x-large;
   background-color: rgb(186, 181, 181);
-
-
 }
 
 td:hover {
   background-color: #dbeafe;
-  /* sanftes Hellblau bei Hover */
 }
 
 .offsets {
@@ -106,8 +98,6 @@ SO {
 }
 
 .today {
-  
-  /* font-weight: bold; */
   border: 4px solid rgb(146, 135, 140);
 }
 
@@ -132,7 +122,10 @@ h3 {
 
 #eventsList {
   background: rgb(186, 181, 181);         
-  border-radius: 30px;         
+  border-radius: 30px; 
+  text-align: left;
+
+
 }
 
 #eventsList li {
@@ -146,8 +139,4 @@ h3 {
 #eventsList .year {
   font-weight: bold;          
   color: #292a2a;                
-}
-
-.historical events on {
-  background-color: brown;
 }

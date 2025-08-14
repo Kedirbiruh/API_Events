@@ -300,9 +300,23 @@ function renderEventsFromArray() {
 
 
 
+        // let eventListe = data.data.Events
+//     let numberEvents = data.data.Events.length;
+//     let eventsArray = [];
 
-//  let numberEvents = data.data.Events.lengh;
-//     let showEvents = [];
+
+
+
+
+
+
+
+
+
+
+
+
+
 //     if (numberEvents > 5) {
 //         let showEventsIndicies = []
 //         for (i = 0; 5 <= i; i++) {
