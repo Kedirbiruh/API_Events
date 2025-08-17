@@ -12,11 +12,13 @@
         <h1 id="title">KALENDERBLATT <span id="fullDate1"></span></h1>
       </div>
       <div id="kalenderblatt">
-        <table>
+        <div class="kalenderNav">
+          <button id="prev" title="Vorheriger Monat & Jahr">◀</button>
+          <span id="kalenderHeader"></span>
+          <button id="next" title="Nächster Monat & Jahr">▶</button>
+        </div>
+        <table id="kalenderTable">
           <thead>
-            <tr>
-              <th colspan="8" id="kalenderHeader"></th>
-            </tr>
             <tr>
               <th>MO</th>
               <th>DI</th>
@@ -40,7 +42,9 @@
           <span id="monthName"> </span> hat
           <span id="daysInMonth"> </span> Tage. <span id="holiday"></span>
         </p>
-        <h3>historical events on <span id="fullDate3"></span></h3>
+      </div>
+      <div>
+        <h3 id="history">historical events on <span id="fullDate3"></span></h3>
         <ul id="eventsList"></ul>
       </div>
     </div>

@@ -20,6 +20,7 @@ document.getElementById('fullWeekday1').textContent = weekday;
 document.getElementById('fullWeekday2').textContent = weekday;
 document.getElementById('fullMonth').textContent = getMonthGerman(todayMonth);
 
+
 let daysInMonth = getDaysInMonth(todayYear, todayMonth);
 document.getElementById('daysInMonth').textContent = daysInMonth;
 document.getElementById('monthName').textContent = getMonthGerman(todayMonth);
@@ -30,7 +31,6 @@ document.getElementById('nthWeekday').textContent = nthWeekday;
 document.addEventListener('DOMContentLoaded', fetchData)
 
 let feiertagsName = getFeiertag(today);
-
 renderCalenderStart2(todayYear, todayMonth);
 if (feiertagsName) {
     document.getElementById("holiday").textContent = `Heute ist ein gesetzlicher Feiertag in Hessen: ${feiertagsName}.`;
@@ -38,7 +38,23 @@ if (feiertagsName) {
     document.getElementById("holiday").textContent = "Heute ist kein gesetzlicher Feiertag in Hessen.";
 }
 
+// document.getElementById("prev").addEventListener("click", () => {
+//     todayMonth--;
+//     if (todayMonth < 0) {
+//         todayMonth = 11;
+//         todayYear--;
+//     }
+//     renderCalenderStart2(todayMonth, todayYear);
+// });
 
+// document.getElementById("next").addEventListener("click", () => {
+//     todayMonth++;
+//     if (todayMonth > 11) {
+//         todayMonth = 0;
+//         todayYear++;
+//     }
+//     renderCalenderStart2(todayMonth, todayYear);
+// });
 
 // HELPER FUNCTIONS //
 
@@ -68,6 +84,7 @@ function getFeiertag(datum) {
     const himmelFahrt = getHimmelfahrt(datum.getFullYear());
     const pfingsten = getPfingsten(datum.getFullYear());
     const karfreitag = getKarfreitag(datum.getFullYear());
+    // const easterSunday = getOstersonntag(datum.getFullYear());
     const ostermontag = getOstermontag(datum.getFullYear());
     const fronleichnam = getFronleichnam(datum.getFullYear());
     
@@ -77,6 +94,8 @@ function getFeiertag(datum) {
         return "Pfingsten";
     } else if (areDatesEqual(datum, karfreitag)) {
         return "Karfreitag";
+    // } else if (areDatesEqual(datum, ostersonntag)) {
+    //     return "Ostersonntag";  
     } else if (areDatesEqual(datum, ostermontag)) {
         return "Ostermontag";
     } else if (areDatesEqual(datum, fronleichnam)) {
@@ -84,7 +103,6 @@ function getFeiertag(datum) {
     }
     return false;
 }
-
 
 // Berechnung von Ostersonntag nach Gauß:
 function getEasterSunday(year) {
@@ -123,7 +141,7 @@ function getKarfreitag(year) {
     const easterSunday = getEasterSunday(year);
     return new Date(easterSunday.getFullYear(), easterSunday.getMonth(), easterSunday.getDate() - 2);
 }
-let eventsArray = [];
+
 
 // Berechnung von  anhand von Ostersonntag:
 function getOstermontag(year) {
@@ -139,6 +157,9 @@ function getFronleichnam(year) {
 
 function renderCalenderStart2(renderYear, renderMonth) {     // funktion to render days
     document.getElementById("kalenderHeader").textContent = `${getMonthGerman(todayMonth)} ${todayYear}`;
+    // let tableBody = document.getElementById("tableBody");
+    // tableBody.innerHTML = "";
+    
     let firstDay = new Date(renderYear, renderMonth, 1); // um herauszufinden, auf welchen Wochentag der 1. Tag des Monats fällt
     let daysOfLastMonth = (firstDay.getDay() + 6) % 7;          // um Sonntag=6, Montag=0 zu bekommen
     let startDay = new Date(renderYear, renderMonth, 1 - daysOfLastMonth);
@@ -157,7 +178,11 @@ function renderCalenderStart2(renderYear, renderMonth) {     // funktion to rend
         let cell = document.createElement("td");
         cell.innerText = day.getDate();
         if (day.getMonth() !== renderMonth) {
+        if (weekday == 6 || weekday == 0) {
+            cell.classList.add("weekendOffsets");
+        } else {
             cell.classList.add("offsets");
+        }
         }
         if (isToday2(day)) {
             cell.classList.add("today");
@@ -180,8 +205,8 @@ function renderCalenderStart2(renderYear, renderMonth) {     // funktion to rend
             row = undefined;
         }
     }
-
 }
+
 
 function getMonthGerman(month) {
     const monthNames = [
@@ -267,38 +292,42 @@ function getDaysInMonth(year, month) {
     return new Date(year, month + 1, 0).getDate();
 }
 
-
-
 async function fetchData() {
+    let eventsArray = [];
     try {
         let url = `https://history.muffinlabs.com/date/${todayMonth}/${todayDay}`;
         let response = await fetch(url);
-        let data = await response.json();
-        let events = data.data.Events.slice(0, 5);
-        console.log(data.data.Events);
+        let json = await response.json();
+        let events = json.data.Events;
         if (!response.ok) throw new Error('not successful');
-        // Events in Array speichern
-        eventsArray = events.map(event =>
-        ({
-            year: event.year,
-            text: event.text
-        }));
-        renderEventsFromArray();   // um die Events aus dem Array,in die HTML-Seite sichtbar zu machen
+        renderEventsFromArray(events);
     } catch (error) {
         console.error(error);
     }
 }
 
-function renderEventsFromArray() {
+function renderEventsFromArray(events) {
     let eventsList = document.getElementById('eventsList');
+    let length = events.length;
+    let chosenEvents = [];
+    while (chosenEvents.length < 5) {
+        let random = Math.floor(Math.random() * length);
+        if (!chosenEvents.includes(random)) {
+        chosenEvents.push(events[random]);
+        }
+    }
+    chosenEvents.sort((a, b) => b.year - a.year);
     eventsList.innerHTML = '';
 
-    eventsArray.forEach(event => {
+    chosenEvents.forEach(event => {
         let li = document.createElement('li');
         li.innerHTML = '<span class="year">' + event.year + '</span> - ' + event.text;
         eventsList.appendChild(li);
     });
 }
+
+
+
 
 
 
