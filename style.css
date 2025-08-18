@@ -112,8 +112,10 @@ SO {
   font-size: 20px;
   letter-spacing: 1px;
   text-align: left;
-
+  margin-left: 200px;
+  width: 50%;
 }
+
 
 h3 {
   margin-top: 10rem;
