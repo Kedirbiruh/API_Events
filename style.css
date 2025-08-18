@@ -1,12 +1,12 @@
 
 body {
   font-family: Arial, sans-serif;
-  background-color:rgb(102, 103, 108);
+  background-color:rgb(131, 133, 139);
   text-align: center;
   justify-content: center;
   text-align: center;
-  margin-right: 100px;
-  margin-left: 100px;
+  margin-right: 200px;
+  margin-left: 200px;
   cursor:default;
   }
 
@@ -59,7 +59,7 @@ background-color: #eef6ff;
   
   border-collapse: collapse;
   table-layout: fixed;
-  width: 100%;
+  width: 80%;
   height: 70%;
 }
 
@@ -67,20 +67,16 @@ th {
   background-color: #75777c;
   color: rgb(36, 35, 35);
   padding: 15px;
-  
-
 }
 
 #tableBody {
   color: rgb(36, 35, 35);
   background-color: rgb(176, 174, 174);
-  
 }
 
 #tableBody td {
   overflow: hidden;
   text-overflow: ellipsis;
-
 }
 
 td:hover {
@@ -89,7 +85,7 @@ td:hover {
 
 .offsets {
   color: rgb(141, 140, 140);
-  background-color: hsla(0, 0%, 51%, 0.263);
+  background-color: hsla(0, 5%, 79%, 0.263);
 }
 .offsets:hover {
   background-color:none;
@@ -97,14 +93,12 @@ td:hover {
 
 .weekendOffsets {
   color: black;
-  background-color: hsla(0, 0%, 51%, 0.263);
+color: rgb(141, 140, 140);}
 
-}
 
 .samstag,
 SA {
   color: rgb(33, 33, 208);
-
 }
 
 .sonntag,
@@ -113,16 +107,11 @@ SO {
 }
 
 .Andre’sBirthday {
-
   color: oklab(59.853% -0.15261 0.12177);
-  
-
 }
 
 .today {
   border: 1px solid rgb(75, 83, 83);
-
-
 }
 
 .feiertag {
@@ -135,18 +124,18 @@ SO {
   font-size: 30px;
   text-align: left;
   margin-left: 200px;
-  
+  width: 50%;
 }
 
 
 #history {
-  background-color: rgb(186, 181, 181);
   text-align: center;
   border-radius: 20px;
   font-size: 40px;
   padding: 30px;
   margin-left: 200px;
   margin-top: 8rem;
+  width: 50%;
 }
 
 
@@ -157,6 +146,7 @@ SO {
   font-size: 30px;
   margin-left: 200px;
   margin-bottom: 8rem;
+  width: 50%;
 }
 
 #eventsList li {
