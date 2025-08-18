@@ -1,4 +1,4 @@
-let today = new Date(2025, 3, 4);
+let today = new Date();
 let todayDay = today.getDate();
 let todayDayFormatted = todayDay.toString().padStart(2, '0');
 
